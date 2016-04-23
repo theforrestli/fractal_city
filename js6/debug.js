@@ -1,5 +1,5 @@
 // var math = require('test');
-// console.log("2π = " + math.sum(math.pi, math.pi));
+console.log(1);
 // var a = require('test2');
 // import View from './view';
 // import Game from './game';

@@ -12,7 +12,7 @@ describe("Sample test", () => {
       expect([]).to.be.an('array');
     })
   });
-  describe("hooks", () =>{
+  describe("hooks", () => {
     var a=0;
     before(() => {
       a+=1;

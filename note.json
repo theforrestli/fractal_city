@@ -1,0 +1,18 @@
+{
+  "server": {
+    "data": [
+      "users"
+    ]
+  },
+  "docs": {
+    "node": {
+      "parentId": "node id of the parent",
+      "children": "array of node id of the children",
+      "owner": "user id of the owner",
+    }
+    "stats": {
+      "population": "sum of children population times bonus",
+      "bonus": "sum of one divide by commute time for all neighbor"
+  }
+}
+

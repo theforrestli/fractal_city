@@ -6,13 +6,20 @@ module.exports = {
   SVG: SVG,
   getNodeById(id){
     return {
+      id: "id",
+      ownerId: "user-id",
+      node: [
+        {x: 1, y: 0}
+      ],
+      edges: [
+        [0, 1, 1.2],
+      ]
       children: [
-        { id: "1", x: 1, y: 0 , r: 0, s: 0.9 }
+        { id: "1", x: 1, y: 0 , r: 0, s: 0.9, nids: [0]}
         // { id: "1", x: -1, y: 0 , r: 0, s: 0.3}
       ],
       type: "",
       weight: 1,
-      data: {},
     };
   },
   generate(id, svg, weight){
@@ -31,10 +38,12 @@ module.exports = {
 
     return {
       node: node,
-      children: children,
+      childen: children,
       svg: svg,
     }
   }
 };
 window.main = module.exports;
+svg=main.SVG("main").group().translate(100,100).scale(20);
+main.generate(1,svg,10);
 

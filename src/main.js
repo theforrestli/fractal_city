@@ -1,7 +1,7 @@
 // var math = require('./test');
 // window.pubsub = require('../vendor/pubsub.js')
-const _ = require("underscore/underscore")
-const SVG = require('svg.js/svg');
+const _ = require("./libs/underscore/underscore")
+const SVG = require('./libs/svg.js/svg');
 const SCALE = 1/5;
 
 module.exports = {

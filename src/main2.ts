@@ -1,11 +1,13 @@
 // var math = require('./test');
 // window.pubsub = require('../vendor/pubsub.js')
-const _ = require("./libs/underscore/underscore")
-const SVG = require('./libs/svg.js/svg');
+import * as _ from "underscore";
+import * as svgjs from "@svgdotjs/svg.js";
+// const _ = require("./libs/underscore/underscore")
+// const SVG = require('./libs/svg.js/svg');
+/*
 const SCALE = 1/5;
-
-module.exports = {
-  SVG: SVG,
+const _export = {
+  SVG: svgjs.SVG,
   getNodeById(id){
     return {
       id: "id",
@@ -81,7 +83,7 @@ module.exports = {
       const n1 = node.nodes[edge[0]]
       const n2 = node.nodes[edge[1]]
 
-      svg.line(n1.x, n1.y, n2.x, n2.y).stroke({ width: edge[2], color: new SVG.Color("#0000000").morph("#000000ff").at(level/4)})
+      svg.line(n1.x, n1.y, n2.x, n2.y).stroke({ width: edge[2], color: new svgjs.Color("#0000000").morph("#000000ff").at(level/4)})
     })
     // svg.rect(1,1).fill({color:"#F00"});
 
@@ -89,7 +91,7 @@ module.exports = {
       return;
     }
 
-    _.each(node.children, (hash) => {
+    _.each(node.children, (hash: any) => {
       const sub_svg = svg.group().translate(hash.x, hash.y).scale(SCALE);
       return this.generate(hash.id, sub_svg, level-1);
     });
@@ -100,7 +102,10 @@ module.exports = {
     }
   }
 };
-window.main = module.exports;
-var svg=main.SVG("main").group().translate(100,100).scale(100);
-main.generate(1,svg,3);
+export default _export;
+window["main"] = _export;
+//var svg=(<SVGElement><unknown>(_export.SVG("main"))).group().translate(100,100).scale(100);
+var svg=(<svgjs.Svg>(_export.SVG("main"))).group().translate(100,100).scale(100);
+_export.generate(1,svg,3);
 
+*/

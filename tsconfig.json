@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "skipLibCheck": true,
+    "module": "commonjs",
+    "lib": [
+      "es2015",
+      "DOM"
+    ],
+    "target": "es6",
+    "sourceMap": true
+  }
+}

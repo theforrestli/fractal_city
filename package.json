@@ -24,5 +24,13 @@
   },
   "homepage": "https://github.com/lijiaqigreat/fractal_city#readme",
   "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@svgdotjs/svg.js": "^3.0.16",
+    "@types/underscore": "^1.10.0",
+    "babelify": "^10.0.0",
+    "browserify": "^16.5.1",
+    "tsify": "^4.0.2",
+    "typescript": "^3.9.5",
+    "underscore": "^1.10.2"
   }
 }

@@ -1,3 +1,4 @@
+import * as _ from "underscore";
 import {mod, Box, Vector, Matrix} from "./util";
 import {Ball, Cell, FloorGame, CELL_BOXES} from "./game";
 
@@ -74,11 +75,10 @@ export class FloorGameController {
         }
         const vInt = new Vector(x,y);
         const boxes = CELL_BOXES.map(box => box.rotate(cell.direction).move(vInt));
-        for(let t = 0;t<boxes.length;t++){
-          const box = boxes[t];
+        _.each(boxes, box => {
           ctx.fillStyle = "#FF3333";
           ctx.fillRect(box.x1, box.y1, box.x2-box.x1, box.y2-box.y1);
-        }
+        });
       }
     }
     ctx.restore();
@@ -138,14 +138,13 @@ export class FloorGameController {
         ctx.restore();
       }
     }
-    for(let t = 0;t<game.balls.length;t++){
-      const ball = game.balls[t];
+    _.each(game.balls, ball => {
       ctx.save();
       ctx.fillStyle = ball.color;
       const box = ball.getBox();
       ctx.fillRect(box.x1, box.y1, box.x2-box.x1, box.y2-box.y1);
       ctx.restore();
-    }
+    });
     ctx.restore();
   }
 

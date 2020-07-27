@@ -83,14 +83,9 @@ export class FloorGame {
           if(cell.time >= 1) {
             cell.time -= 1;
             const ball = new Ball(new Vector(x,y), cell.color);
-            let valid = true;
-            for(let t = 0;t<this.balls.length;t++) {
-              const ball2 = this.balls[t];
-              if(ball != ball2 && Ball.isColliding(ball, ball2)) {
-                valid = false;
-                break;
-              }
-            }
+            let valid = _.every(this.balls, ball2 =>
+              !(ball != ball2 && Ball.isColliding(ball, ball2))
+            );
             if(valid) {
               this.balls.push(ball);
             }
@@ -99,8 +94,7 @@ export class FloorGame {
       }
     }
     // update ball
-    for(let t = 0;t<this.balls.length;t++) {
-      const ball = this.balls[t];
+    _.each(this.balls, ball => {
       const applyDirections = [false, false, false, false];
       ball.getCorners().map((v: Vector) => {
         const vInt = v.toInt();
@@ -124,7 +118,7 @@ export class FloorGame {
       if(applyDirections[3] && !applyDirections[1]) {
         this.tryMoveBall(ball, 3);
       }
-    }
+    });
   }
   
   tryMoveBall(ball: Ball, direction: number) {
@@ -141,18 +135,14 @@ export class FloorGame {
       if(cell.t == "room") {
         const box = newBall.getBox();
         const boxes = CELL_BOXES.map(box => box.rotate(cell.direction).move(vInt));
-        for(let t2 = 0;t2<boxes.length;t2++){
-          if(Box.isColliding(boxes[t2], box)) {
-            return;
-          }
+        if(_.some(boxes, box2 => Box.isColliding(box2, box))) {
+          return;
         }
       }
     }
-    for(let t = 0;t<this.balls.length;t++) {
-      const ball2 = this.balls[t];
-      if(ball != ball2 && Ball.isColliding(newBall, ball2)) {
-        return;
-      }
+    if(_.some(this.balls, ball2 =>
+      ball != ball2 && Ball.isColliding(newBall, ball2))) {
+      return;
     }
 
     ball.position = newBall.position;

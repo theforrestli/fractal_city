@@ -2,10 +2,15 @@ import * as _ from "underscore";
 import {mod, Box, Vector, Matrix} from "./util";
 import {Ball, Cell, FloorGame, CELL_BOXES} from "./game";
 
-const roomImage = new Image();
-roomImage.src = "/images/room.png";
-const beltImage = new Image();
-beltImage.src = "/images/belt.png";
+function loadImage(url: string) {
+  const image = new Image();
+  image.src = url;
+  return image;
+}
+
+const roomImage = loadImage("/images/room.png");
+const beltImage = loadImage("/images/belt.png");
+const sinkImage = loadImage("/images/sink.png");
 
 export class FloorGameController {
   canvas: HTMLCanvasElement;
@@ -53,7 +58,7 @@ export class FloorGameController {
         this.t = "belt";
         break;
       case "3":
-        this.t = "";
+        this.t = "sink";
     }
   }
 
@@ -83,6 +88,9 @@ export class FloorGameController {
     }
     ctx.restore();
   }
+  drawCellImage(ctx: CanvasRenderingContext2D, image: HTMLImageElement) {
+    ctx.drawImage(image, 0,0,100,100,-0.5,-0.5,1,1);
+  }
 
   drawGame(ctx: CanvasRenderingContext2D): void {
     ctx.save();
@@ -105,7 +113,7 @@ export class FloorGameController {
             //draw room
             ctx.save();
             ctx.rotate(c.direction*Math.PI/2);
-            ctx.drawImage(roomImage, 0,0,100,100,-0.5,-0.5,1,1);
+            this.drawCellImage(ctx, roomImage);
             ctx.restore();
 
             //draw dot
@@ -130,7 +138,13 @@ export class FloorGameController {
           case "belt":
             ctx.save();
             ctx.rotate(c.direction*Math.PI/2);
-            ctx.drawImage(beltImage, 0,0,100,100,-0.5,-0.5,1,1);
+            this.drawCellImage(ctx, beltImage);
+            ctx.restore();
+            break;
+          case "sink":
+            ctx.save();
+            ctx.rotate(c.direction*Math.PI/2);
+            this.drawCellImage(ctx, sinkImage);
             ctx.restore();
             break;
 
@@ -164,9 +178,11 @@ export class FloorGameController {
       ctx.globalAlpha = 0.5;
       ctx.rotate(this.direction*Math.PI/2);
       if(this.t == "room") {
-        ctx.drawImage(roomImage, 0,0,100,100,-0.5,-0.5,1,1);
+        this.drawCellImage(ctx, roomImage);
       } else if (this.t == "belt") {
-        ctx.drawImage(beltImage, 0,0,100,100,-0.5,-0.5,1,1);
+        this.drawCellImage(ctx, beltImage);
+      } else if (this.t == "sink") {
+        this.drawCellImage(ctx, sinkImage);
       }
 
       ctx.restore();

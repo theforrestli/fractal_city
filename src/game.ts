@@ -45,7 +45,7 @@ export const CELL_BOXES = [
 
 export const GENERATION_SPEED = 0.05;
 export const MOVE_SPEED = 0.1;
-export const BALL_SIZE = 0.5;
+export const BALL_SIZE = 0.3;
 
 export class FloorGame {
   time: number;
@@ -94,7 +94,8 @@ export class FloorGame {
       }
     }
     // update ball
-    _.each(this.balls, ball => {
+    this.balls =
+    _.filter(this.balls, ball => {
       const applyDirections = [false, false, false, false];
       ball.getCorners().map((v: Vector) => {
         const vInt = v.toInt();
@@ -118,7 +119,13 @@ export class FloorGame {
       if(applyDirections[3] && !applyDirections[1]) {
         this.tryMoveBall(ball, 3);
       }
+      const vInt = ball.position.toInt();
+      if(this.grid[vInt.y][vInt.x].t == "sink") {
+        return false;
+      }
+      return true;
     });
+
   }
   
   tryMoveBall(ball: Ball, direction: number) {
@@ -157,7 +164,7 @@ export class FloorGame {
       new Vector(-r, -r),
       new Vector(-r, r)
     ].forEach(delta => {
-      const corner = v.add(delta).toInt(0.5);
+      const corner = v.add(delta).toInt();
       result.add(corner);
     });
     return Array.from(result);

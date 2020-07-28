@@ -47,7 +47,7 @@ redraw();
 function update() {
   game.update();
 }
-const timer = setInterval(update, 500);
+const timer = setInterval(update, 100);
 
 const _export = {
   canvas,
